@@ -1,5 +1,23 @@
-from mysql.connector import cursor, cursor_cext, errors
+from mysql.connector import cursor, cursor_cext, errors,connection, connect
 import datetime as dt
+
+def create_con_cur(hostname: str, username: str, pwd: str, database_name: str) -> tuple[connection.MySQLConnection, cursor.MySQLCursor]:
+    '''
+    Hostname: Name of the server on which the database is hosted. Can be IP Address
+    Username: Name of the user of the database on the host
+    Pwd: Password of the database (Case Sensitive)
+    Database_name: Name of the database.
+
+    Returns a connection object to the database as well as a cursor object.
+
+    Raises TypeError if the datatypes of values passed are incorrect.
+    Raises connection errors if either of the passed values is incorrect.
+    '''
+
+    if type(hostname) != type(username) != type(pwd) != type(database_name) != str:
+        return TypeError("All the values passed should be strings")
+    con = connect(host = hostname, user = username, password = pwd, database = database_name)
+    return con, con.cursor
 
 def exists(curr: cursor.MySQLCursor | cursor_cext.CMySQLCursor, tablename: str, primary_key: str | int | float,
         primary_col: str) -> bool:

@@ -27,7 +27,7 @@ class Person:
             raise ValueError("DOB not passed")
         return self.DOB
 
-    def get_details(self) -> tuple(str,str):
+    def get_details(self) -> tuple[str,str]:
         '''return date in DD Month Name YYYY type format'''
         if self.DOB == None:
             return self.name
