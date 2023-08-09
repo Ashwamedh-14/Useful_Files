@@ -9,30 +9,31 @@ class Person:
         else:
             self.DOB: dt.datetime = DOB
 
-    def get_name(self):
+    def __str__(self) -> str:
+        return f"Hi, I am {self.name} and was born on {self.DOB}"
+
+    def get_name(self) -> str:
         return self.name
 
-    def get_DOB_str(self, processing: bool = False):
+    def get_DOB_str(self, processing: bool = False) -> str:
         if self.DOB == None:
             raise ValueError("DOB not passed")
         if processing:
             return self.DOB.strftime(r"%Y-%m-%d")
-        else:
-            return self.DOB.strftime(r"%d %B %Y")
+        return self.DOB.strftime(r"%d %B %Y")
 
-    def get_DOB_datetime(self):
+    def get_DOB_datetime(self) -> dt.datetime:
         if self.DOB == None:
             raise ValueError("DOB not passed")
         return self.DOB
 
-    def get_details(self):
+    def get_details(self) -> tuple(str,str):
         '''return date in DD Month Name YYYY type format'''
         if self.DOB == None:
             return self.name
-        else:
-            return self.name, self.DOB.strftime(r"%d %B %Y")
+        return self.name, self.DOB.strftime(r"%d %B %Y")
         
-    def get_age(self):
+    def get_age(self) -> int:
         if self.DOB == None:
             raise ValueError("DOB not enterred")
         today = dt.datetime.today()
@@ -40,11 +41,10 @@ class Person:
             return today.year - self.DOB.year - 1
         elif self.DOB.month < today.month:
             return today.year - self.DOB.year
-        else:
-            if self.DOB.day > today.day:
-                return today.year - self.DOB.year - 1
-            else: 
-                return today.year - self.DOB.year
+        elif self.DOB.day > today.day:
+            return today.year - self.DOB.year - 1
+        else: 
+            return today.year - self.DOB.year
     
     
 
